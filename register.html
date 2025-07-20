@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Register - My E-commerce Store{% endblock %}
+
+{% block content %}
+    <h2>Register New Account</h2>
+    <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="address">Delivery Address (Optional):</label>
+        <textarea id="address" name="address" rows="3"></textarea>
+
+        <label for="contact_number">Contact Number (Optional):</label>
+        <input type="text" id="contact_number" name="contact_number">
+
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+{% endblock %}

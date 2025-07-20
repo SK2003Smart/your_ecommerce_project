@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - My E-commerce Store{% endblock %}
+
+{% block content %}
+    <h2>My Profile</h2>
+    <form method="POST" action="{{ url_for('profile') }}" class="auth-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ user.username }}" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ user.email }}" required>
+
+        <label for="address">Delivery Address:</label>
+        <textarea id="address" name="address" rows="3">{{ user.address or '' }}</textarea>
+
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number" value="{{ user.contact_number or '' }}">
+
+        <button type="submit">Update Profile</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - My E-commerce Store{% endblock %}
+
+{% block content %}
+    <div class="product-detail-container">
+        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-detail-image">
+        <div class="product-detail-info">
+            <h1>{{ product.name }}</h1>
+            <p class="price">Price: ₹{{ product.price | round(2) }}</p>
+            <p class="description">{{ product.description }}</p>
+            <p class="stock">Available Stock: {{ product.stock }}</p>
+            {% if product.stock > 0 %}
+                <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="button add-to-cart">Add to Cart</a>
+            {% else %}
+                <p class="out-of-stock">Out of Stock</p>
+            {% endif %}
+            <p><a href="{{ url_for('index') }}">Back to Products</a></p>
+        </div>
+    </div>
+{% endblock %}

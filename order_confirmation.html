@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmation - My E-commerce Store{% endblock %}
+
+{% block content %}
+    <h2>Order Confirmation</h2>
+    <div class="order-confirmation-details">
+        <p>Thank you for your order! Your order has been successfully placed.</p>
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Order Date:</strong> {{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p><strong>Total Amount:</strong> ₹{{ order.total_amount | round(2) }}</p>
+        <p><strong>Payment Mode:</strong> {{ order.payment_mode }}</p>
+        <p><strong>Delivery Address:</strong> {{ order.delivery_address }}</p>
+        <p><strong>Contact Number:</strong> {{ order.contact_number }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+
+        <h3>Order Items:</h3>
+        <ul class="order-items-list">
+            {% for item in order.order_items %}
+                <li>{{ item.product.name }} (x{{ item.quantity }}) - ₹{{ item.price | round(2) }} each</li>
+            {% endfor %}
+        </ul>
+        <p><a href="{{ url_for('my_orders') }}" class="button">View My Orders</a></p>
+        <p><a href="{{ url_for('index') }}" class="button">Continue Shopping</a></p>
+    </div>
+{% endblock %}
