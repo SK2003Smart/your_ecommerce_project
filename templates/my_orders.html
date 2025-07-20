@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders - My E-commerce Store{% endblock %}
+
+{% block content %}
+    <h2>My Orders</h2>
+    {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <h3>Order #{{ order.id }}</h3>
+                <p><strong>Date:</strong> {{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                <p><strong>Total:</strong> ₹{{ order.total_amount | round(2) }}</p>
+                <p><strong>Status:</strong> <span class="order-status {{ order.status | lower }}">{{ order.status }}</span></p>
+                <p><strong>Payment Mode:</strong> {{ order.payment_mode }}</p>
+                <h4>Items:</h4>
+                <ul class="order-items-summary">
+                    {% for item in order.order_items %}
+                        <li>{{ item.product.name }} (x{{ item.quantity }})</li>
+                    {% endfor %}
+                </ul>
+                <p>Delivery to: {{ order.delivery_address }}</p>
+                <p>Contact: {{ order.contact_number }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't placed any orders yet.</p>
+    {% endif %}
+{% endblock %}

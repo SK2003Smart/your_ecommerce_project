@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to My E-commerce Store{% endblock %}
+
+{% block content %}
+    <div class="hero-video-section">
+        <video autoplay muted loop playsinline class="background-video">
+            {# CORRECTED: Using url_for for Flask static files with forward slashes #}
+            <source src="{{ url_for('static', filename='images/your_brand_hero_video.mp4') }}" type="video/mp4">
+            <source src="{{ url_for('static', filename='images/your_brand_hero_video.webm') }}" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Discover Quality, Shop with Style</h1>
+            <p>Your one-stop destination for premium products.</p>
+            <a href="{{ url_for('index') }}" class="button hero-button">Shop Now</a>
+        </div>
+    </div>
+
+    {# Existing product section, now below the hero video #}
+    <h2>Available Products</h2>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p class="price">₹{{ product.price | round(2) }}</p>
+            <p class="stock">Stock: {{ product.stock }}</p>
+            <a href="{{ url_for('product_detail', product_id=product.id) }}" class="button">View Details</a>
+            <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="button add-to-cart">Add to Cart</a>
+        </div>
+        {% else %}
+        <p>No products available yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

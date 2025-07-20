@@ -1,0 +1,5 @@
+Flask==2.3.2
+Flask-SQLAlchemy==2.5.1
+Werkzeug==2.3.7
+SQLAlchemy==1.4.46
+stripe==8.6.0 # Keep this if you intend to use Strip

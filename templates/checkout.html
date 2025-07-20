@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - My E-commerce Store{% endblock %}
+
+{% block content %}
+    <h2>Checkout</h2>
+    <form method="POST" action="{{ url_for('checkout') }}" class="checkout-form">
+        <h3>Delivery Information</h3>
+        <label for="delivery_address">Delivery Address:</label>
+        <textarea id="delivery_address" name="delivery_address" rows="4" required>{{ user.address or '' }}</textarea>
+
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number" value="{{ user.contact_number or '' }}" required>
+
+        <h3>Order Summary</h3>
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.product.price | round(2) }}</td>
+                    <td>₹{{ (item.product.price * item.quantity) | round(2) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total Amount:</strong></td>
+                    <td><strong>₹{{ total_amount | round(2) }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h3>Payment Mode</h3>
+        <div class="payment-options">
+            <label>
+                <input type="radio" name="payment_mode" value="UPI" required> UPI
+            </label>
+            <label>
+                <input type="radio" name="payment_mode" value="Debit Card" required> Debit Card
+            </label>
+            <label>
+                <input type="radio" name="payment_mode" value="COD" required> Cash on Delivery (COD)
+            </label>
+        </div>
+
+        <button type="submit" class="button place-order-button">Place Order</button>
+    </form>
+{% endblock %}
